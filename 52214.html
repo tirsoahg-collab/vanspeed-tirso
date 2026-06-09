@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Growth Strategy: Vanspeed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2F3F1;
+    --ink:#1B2227;
+    --body:#4A555C;
+    --slate:#5B7E96;
+    --slate-deep:#2A3942;
+    --dark:#222E35;
+    --clay:#BD6A3C;
+    --line:#D9DAD4;
+    --line-dark:#3A4750;
+    --maxw:920px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;}
+
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--slate);
+    margin:0;
+  }
+  h1,h2,h3{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--ink);}
+  p{color:var(--body);margin:0 0 1em;}
+  strong{color:var(--ink);font-weight:600;}
+
+  /* HERO */
+  header.hero{padding:88px 0 56px;border-bottom:1px solid var(--line);}
+  .hero h1{
+    font-size:clamp(2.4rem,6vw,4rem);
+    line-height:1.02;
+    letter-spacing:-0.02em;
+    margin:18px 0 22px;
+    max-width:15ch;
+  }
+  .hero h1 .accent{color:var(--clay);}
+  .hero .stand{font-size:1.18rem;max-width:56ch;margin:0 0 30px;}
+  .meta{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12.5px;letter-spacing:0.04em;
+    color:var(--slate-deep);
+    display:flex;flex-wrap:wrap;gap:8px 22px;
+    padding-top:20px;border-top:1px solid var(--line);
+  }
+  .meta span b{color:var(--ink);font-weight:600;}
+
+  /* SECTION SCAFFOLD */
+  section{padding:60px 0;border-bottom:1px solid var(--line);}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:30px;}
+  .sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--clay);font-weight:600;}
+  .sec-head h2{font-size:clamp(1.5rem,3.4vw,2.1rem);letter-spacing:-0.01em;margin:0;}
+  .lead{font-size:1.1rem;max-width:62ch;}
+
+  /* FUNNEL GRID */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px;}
+  .cell{background:var(--paper);padding:24px 24px 26px;}
+  .cell .tag{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--slate);display:block;margin-bottom:8px;}
+  .cell h3{font-size:1.12rem;margin:0 0 8px;}
+  .cell p{font-size:0.97rem;margin:0;}
+  .note{margin-top:24px;font-size:1.05rem;color:var(--ink);border-left:3px solid var(--clay);padding-left:18px;}
+
+  /* DARK FOUNDATION BLOCK */
+  .dark{background:var(--dark);color:#D7DCDE;border-bottom:none;}
+  .dark .eyebrow{color:#8FB0C4;}
+  .dark h2{color:#fff;}
+  .dark .sec-num{color:var(--clay);}
+  .dark p{color:#AEB8BD;}
+  .dark .lead{color:#C9D1D4;}
+  .stack{margin-top:26px;display:grid;gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);}
+  .row{background:var(--dark);padding:20px 22px;}
+  .row h3{color:#fff;font-size:1.05rem;margin:0 0 6px;}
+  .row .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--clay);display:block;margin-bottom:7px;}
+  .row p{margin:0;font-size:0.96rem;}
+
+  /* CHANNELS */
+  .chan{margin-top:8px;border-top:1px solid var(--line);}
+  .chan .item{padding:22px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:170px 1fr;gap:24px;}
+  .chan .item .label{font-family:"Space Grotesk",sans-serif;font-weight:600;color:var(--ink);font-size:1.02rem;padding-top:1px;}
+  .chan .item p{margin:0;font-size:0.99rem;}
+  .chan .item p .hl{color:var(--slate);font-weight:600;}
+
+  /* PHASES */
+  .phases{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px;}
+  .phase{background:var(--paper);padding:22px 20px 24px;}
+  .phase .n{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:2rem;color:var(--clay);line-height:1;}
+  .phase .when{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:0.08em;color:var(--slate);margin:10px 0 6px;}
+  .phase h3{font-size:1.02rem;margin:0 0 8px;}
+  .phase p{font-size:0.92rem;margin:0;}
+
+  /* UPSIDE + KPI */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+  ul.clean{list-style:none;margin:8px 0 0;padding:0;}
+  ul.clean li{padding:13px 0;border-bottom:1px solid var(--line);font-size:1rem;color:var(--ink);}
+  ul.clean li:last-child{border-bottom:none;}
+  ul.clean li span{color:var(--body);}
+  .kpis{margin-top:8px;font-family:"IBM Plex Mono",monospace;font-size:0.92rem;line-height:1.9;color:var(--slate-deep);}
+  .kpis b{color:var(--ink);}
+
+  footer{padding:46px 0 70px;}
+  footer .meta{border-top:none;padding-top:0;}
+
+  /* MOTION */
+  .fade{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .fade.in{opacity:1;transform:none;}
+
+  @media(max-width:680px){
+    body{font-size:16px;}
+    .grid,.phases{grid-template-columns:1fr;}
+    .two{grid-template-columns:1fr;gap:34px;}
+    .chan .item{grid-template-columns:1fr;gap:6px;}
+    header.hero{padding:64px 0 44px;}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .fade{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Growth Strategy · Traffic &amp; Leads</p>
+    <h1>One brand. Four funnels. The growth is in <span class="accent">not selling them the same way.</span></h1>
+    <p class="stand">Vanspeed is a premium Sprinter conversion brand that builds in Westminster and ships nationwide. A six-figure build buyer and a parts buyer are both on the site. The plan separates those funnels, fixes the measurement underneath them, and turns the demand already searching into booked consults.</p>
+    <div class="meta">
+      <span>Prepared by <b>Tirso</b></span>
+      <span>Subject <b>vanspeedshop.com</b></span>
+      <span>Date <b>June 2026</b></span>
+    </div>
+  </div>
+</header>
+
+<section class="fade">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>How I read the business</h2></div>
+    <p class="lead">One brand is quietly running four businesses, and each one is bought differently. Most of the strategy comes down to respecting that.</p>
+    <div class="grid">
+      <div class="cell">
+        <span class="tag">Custom Build</span>
+        <h3>The flagship</h3>
+        <p>Six-figure ticket, 6 to 8 week wait. High-ticket lead gen. Nobody buys on the first visit.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Ready-Built</span>
+        <h3>In stock, with urgency</h3>
+        <p>Same money, but available now. The pitch writes itself: skip the wait, drive it home.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Parts &amp; Apparel</span>
+        <h3>Ecommerce</h3>
+        <p>Lower ticket, repeat buyers, and it reaches DIY owners who will never buy a full build.</p>
+      </div>
+      <div class="cell">
+        <span class="tag">Rental · AltCamp</span>
+        <h3>Try before you buy</h3>
+        <p>A quiet on-ramp. A rental can turn straight into a build sale.</p>
+      </div>
+    </div>
+    <p class="note">A $180K build buyer and a $300 roof-rack buyer are both here. Market to them the same way and you waste budget on both.</p>
+  </div>
+</section>
+
+<section class="dark fade">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>The foundation: data, tracking, reporting</h2></div>
+    <p class="lead">Low volume, high ticket. You win on a handful of big sales, so the whole thing breaks if you measure the wrong signal. This is the cheapest, highest-return work, and everything else rides on it.</p>
+    <div class="stack">
+      <div class="row">
+        <span class="k">GTM</span>
+        <h3>Tagging done on purpose</h3>
+        <p>Clean dataLayer and real events per funnel: quiz start, quiz complete, consult request, layout and build page views, add to cart, Ready-Built view. Consent Mode v2 so we stay compliant and keep modeled conversions instead of throwing the data away.</p>
+      </div>
+      <div class="row">
+        <span class="k">HubSpot</span>
+        <h3>Close the loop</h3>
+        <p>HubSpot is already in place. Put the consult pipeline on real deal stages, then feed outcomes back to Google and Meta as offline conversions. The platforms optimize toward deposits and sales, not form fills.</p>
+      </div>
+      <div class="row">
+        <span class="k">Breeze · Reverse IP</span>
+        <h3>De-anonymize the traffic</h3>
+        <p>Most people researching a six-figure van never fill out a form. Breeze Intelligence identifies and enriches them by reverse IP. Sales gets a warm list of high-intent visitors who never raised a hand, and forms get shorter because Breeze backfills the data. Less friction, more conversions.</p>
+      </div>
+      <div class="row">
+        <span class="k">Call Tracking</span>
+        <h3>Catch the phone buyers</h3>
+        <p>On a six-figure purchase, people call. Untracked calls make the channels that actually sell look dead.</p>
+      </div>
+      <div class="row">
+        <span class="k">Reporting</span>
+        <h3>One view that drives decisions</h3>
+        <p>A single Looker Studio dashboard over GA4, ad spend, and HubSpot pipeline. Weekly read for optimization, monthly for strategy, lead scoring underneath. If a number does not change a decision, it does not go on the board.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>The channels</h2></div>
+    <div class="chan">
+      <div class="item">
+        <div class="label">Search, SEO &amp; AEO</div>
+        <p>Paid search <span class="hl">split by funnel</span> plus brand defense so nobody bids on the Vanspeed name. SEO targets the research queries buyers hit early: what a conversion costs, 144 versus 170, is van life worth it, plus region pages and the "best builder" roundups. <span class="hl">AEO</span> on top: structure pages with clear question-led answers and FAQ schema, keep the brand entity consistent, and earn mentions in the sources AI engines quote, so Google AI Overviews, ChatGPT and Perplexity name Vanspeed when someone asks who builds the best Sprinter.</p>
+      </div>
+      <div class="item">
+        <div class="label">Lifecycle in HubSpot</div>
+        <p>The buying window runs 6 to 12 months, so nurture matters. <span class="hl">All of it lives in HubSpot:</span> a build track (owner stories, financing, new inventory) and the parts flows that are missing today (post-quiz welcome, cart abandonment, inventory alerts, post-handover referral ask). Rental customers get their own track, since someone who already slept in a Vanspeed is the warmest build lead there is.</p>
+      </div>
+      <div class="item">
+        <div class="label">Conversion &amp; speed to lead</div>
+        <p>The "Start Your Journey" quiz is the best hook on the site. Cut its friction, let Breeze keep forms short, and add a financing calculator since financing takes the fear out of a big buy. Then wire HubSpot to route and notify the second a lead lands, with an SMS follow-up. Leads go cold in minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Priorities</h2></div>
+    <div class="phases">
+      <div class="phase">
+        <div class="n">1</div>
+        <div class="when">MONTH 1</div>
+        <h3>Foundation</h3>
+        <p>Rebuild GTM tagging, close the HubSpot loop, turn on Breeze, switch on brand defense and retargeting, get base flows live.</p>
+      </div>
+      <div class="phase">
+        <div class="n">2</div>
+        <div class="when">MONTH 1 TO 3</div>
+        <h3>Capture</h3>
+        <p>Turn on the paid demand capture: search, Shopping and a cleaner quiz, with nurture running behind it. Fast wins, qualified leads start climbing.</p>
+      </div>
+      <div class="phase">
+        <div class="n">3</div>
+        <div class="when">MONTH 3 TO 6</div>
+        <h3>Scale</h3>
+        <p>Build the SEO and AEO engine that compounds over months, widen keyword coverage, and double down on whatever is converting.</p>
+      </div>
+      <div class="phase">
+        <div class="n">4</div>
+        <div class="when">MONTH 6 TO 12</div>
+        <h3>Compound</h3>
+        <p>Tune each channel and work retention: repeat parts buyers and post-handover referrals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <div class="sec-head"><span class="sec-num">05</span><h2>Where the upside is</h2></div>
+        <ul class="clean">
+          <li>Existing content and real build expertise. <span>Structured into SEO and AEO pages, it ranks and gets cited by AI engines at almost no media cost.</span></li>
+          <li>Parts as a cheap way into the brand. <span>A small accessory buyer comes back for a van or sends a friend.</span></li>
+          <li>Measurement plus Breeze. <span>What makes a low-conversion business scalable, and it surfaces demand that is invisible today.</span></li>
+          <li>Financing as a conversion lever. <span>It moves more buyers off the fence than any new creative.</span></li>
+        </ul>
+      </div>
+      <div>
+        <div class="sec-head"><span class="sec-num">06</span><h2>How I know it works</h2></div>
+        <p class="kpis">
+          <b>Qualified consults</b> &amp; cost per consult<br>
+          <b>Build deposits</b> booked<br>
+          <b>Ready-Built</b> sell-through time<br>
+          <b>Parts revenue</b> &amp; repeat rate<br>
+          <b>ROAS</b> by channel<br>
+          <b>% of revenue</b> traced to a source<br>
+          <b>CAC vs LTV</b> on top of it all
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="meta">
+      <span>Growth strategy for <b>Vanspeed</b></span>
+      <span>Prepared by <b>Tirso</b></span>
+      <span><b>June 2026</b></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target);} });
+  },{threshold:0.12});
+  document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>
